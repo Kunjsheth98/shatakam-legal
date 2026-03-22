@@ -384,10 +384,19 @@
     document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
     document.getElementById(id).classList.add('active');
-    el.classList.add('active');
+    if (el) el.classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     return false;
   }
+
+  window.addEventListener('DOMContentLoaded', function() {
+    var map = { privacy: 0, terms: 1, data: 2 };
+    var hash = window.location.hash.replace('#', '');
+    if (hash && map[hash] !== undefined) {
+      var links = document.querySelectorAll('nav a');
+      show(hash, links[map[hash]]);
+    }
+  });
 </script>
 </body>
 </html>
